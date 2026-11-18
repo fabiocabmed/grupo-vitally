@@ -1,0 +1,6 @@
+{
+  "name": "Grupo Vitally",
+  "description": "Plataforma central executiva do ecossistema Grupo Vitally — Vitally Sales, Vitally Studio e Vitally Apps.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
