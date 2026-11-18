@@ -463,6 +463,32 @@ textarea:focus-visible {
   }
 }
 
+@keyframes terminalScroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+.animate-terminal-scroll {
+  animation: terminalScroll 10s linear infinite;
+}
+
+.group:hover .animate-terminal-scroll {
+  animation-duration: 3.5s;
+}
+
+@keyframes radarSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-radar-spin {
+  animation: radarSpin 12s linear infinite;
+}
+
+.group:hover .animate-radar-spin {
+  animation-duration: 4s;
+}
+
 /* Reduced Motion Respect */
 @media (prefers-reduced-motion: reduce) {
   .aurora-orb-1,

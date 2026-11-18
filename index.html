@@ -425,7 +425,7 @@
       <!-- =======================================================
            TELA 2: LOBBY EXECUTIVO — SELETOR DE MÓDULOS (#lobby-view)
            ======================================================= -->
-      <section id="lobby-view" class="view-section hidden flex-1 max-w-[1200px] w-full mx-auto px-4 sm:px-8 pt-28 pb-16">
+      <section id="lobby-view" class="view-section hidden flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 pt-32 pb-16">
         <!-- Hero Central -->
         <div class="max-w-2xl mb-10 sm:mb-12">
           <p class="text-xs font-semibold tracking-[0.08em] uppercase text-cyan-400 mb-3">
@@ -439,81 +439,87 @@
           </p>
         </div>
 
-        <!-- Grid 3 Colunas Desktop (Largura e Altura Idênticas) -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- Card 1: Vitally Sales -->
+        <!-- Grid 3 Colunas Desktop (Largura e Altura Padronizadas) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto w-full">
+          <!-- Card 1: Vitally Sales (Negócios & Performance B2B) -->
           <button
             type="button"
             data-navigate="sales"
             data-module="sales"
-            class="overflow-hidden relative group text-left bg-[#0B1222]/85 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-7 flex flex-col justify-between h-full min-h-[300px] transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/60 hover:shadow-[0_0_30px_rgba(37,99,235,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+            class="overflow-hidden relative group text-left bg-[#0B1222]/85 backdrop-blur-xl border border-white/10 rounded-2xl p-6 flex flex-col justify-between min-h-[290px] transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/75 hover:shadow-[0_0_30px_rgba(37,99,235,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           >
-            <img
-              src="/src/assets/images/lobby_vitally_sales_1795009854783.jpg"
-              alt=""
-              aria-hidden="true"
-              referrerpolicy="no-referrer"
-              onerror="this.style.display='none'"
-              class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-35 group-hover:scale-105 transition-all duration-500 pointer-events-none select-none"
-            />
+            <!-- SVG Background Animado: Gráfico Ascendente & Radar B2B -->
+            <div class="absolute inset-0 pointer-events-none overflow-hidden opacity-25 group-hover:opacity-50 transition-opacity duration-500">
+              <svg class="absolute w-full h-full -right-4 -bottom-4 text-blue-500/40 group-hover:text-blue-400/70 transition-colors" viewBox="0 0 200 200" fill="none">
+                <circle cx="150" cy="150" r="80" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" class="animate-radar-spin" />
+                <circle cx="150" cy="150" r="50" stroke="currentColor" stroke-width="1.5" />
+                <path d="M 60 160 Q 90 110, 130 90 T 190 50" stroke="#3B82F6" stroke-width="2.5" fill="none" class="group-hover:stroke-[3.5] transition-all" />
+                <rect x="70" y="130" width="12" height="35" rx="3" fill="#3B82F6" opacity="0.6" />
+                <rect x="95" y="105" width="12" height="60" rx="3" fill="#3B82F6" opacity="0.8" />
+                <rect x="120" y="80" width="12" height="85" rx="3" fill="#3B82F6" />
+              </svg>
+            </div>
             <div
               class="absolute inset-0 bg-gradient-to-t from-[#080D1A] via-[#0B1222]/90 to-[#0B1222]/75 pointer-events-none"
               aria-hidden="true"
             ></div>
 
             <div class="relative z-10">
-              <div class="flex items-center justify-between gap-2.5 mb-6">
-                <div class="w-11 h-11 rounded-xl bg-blue-600/15 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0 group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-600/30 transition-all duration-200">
+              <div class="flex items-center justify-between gap-3 mb-5">
+                <div class="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0 group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-blue-600/30 transition-all duration-200">
                   <i data-lucide="trending-up" class="w-5 h-5"></i>
                 </div>
-                <span class="text-[10px] font-semibold tracking-wider text-blue-300 bg-blue-500/10 border border-blue-400/20 px-2.5 py-1 rounded-md whitespace-nowrap shrink-0">
-                  OPERAÇÃO COMERCIAL &amp; CRM
+                <span class="text-[10px] font-semibold tracking-wider text-blue-300 bg-blue-500/10 border border-blue-400/20 px-2.5 py-1 rounded-full whitespace-nowrap shrink-0">
+                  COMERCIAL &amp; CRM
                 </span>
               </div>
 
               <h2 class="font-display font-bold text-2xl tracking-[-0.02em] text-[#F8FAFC] group-hover:text-blue-300 transition-colors">
                 Vitally Sales
               </h2>
-              <p class="mt-2.5 text-sm leading-relaxed text-[#94A3B8]">
+              <p class="mt-2 text-sm leading-relaxed text-[#94A3B8]">
                 Inteligência de prospecção B2B, cadências automatizadas com IA e gestão de pipeline.
               </p>
             </div>
 
-            <div class="relative z-10 mt-8 pt-5 border-t border-white/10 flex items-center justify-between gap-2 text-xs">
+            <div class="relative z-10 flex items-center justify-between gap-2 pt-4 mt-6 border-t border-white/10 text-xs">
               <span class="text-slate-300 whitespace-nowrap">1 ferramenta ativa</span>
               <span class="inline-flex items-center gap-1 font-semibold text-blue-400 group-hover:text-cyan-300 transition-colors whitespace-nowrap shrink-0">
-                <span>Acessar Vertente</span>
+                <span class="whitespace-nowrap">Acessar Vertente</span>
                 <i data-lucide="arrow-right" class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform duration-150"></i>
               </span>
             </div>
           </button>
 
-          <!-- Card 2: Vitally Studio -->
+          <!-- Card 2: Vitally Studio (Criação & Design Digital) -->
           <button
             type="button"
             data-navigate="studio"
             data-module="studio"
-            class="overflow-hidden relative group text-left bg-[#0B1222]/85 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-7 flex flex-col justify-between h-full min-h-[300px] transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/60 hover:shadow-[0_0_30px_rgba(6,182,212,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+            class="overflow-hidden relative group text-left bg-[#0B1222]/85 backdrop-blur-xl border border-white/10 rounded-2xl p-6 flex flex-col justify-between min-h-[290px] transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/75 hover:shadow-[0_0_30px_rgba(6,182,212,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
           >
-            <img
-              src="/src/assets/images/lobby_vitally_studio_1795009854514.jpg"
-              alt=""
-              aria-hidden="true"
-              referrerpolicy="no-referrer"
-              onerror="this.style.display='none'"
-              class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-35 group-hover:scale-105 transition-all duration-500 pointer-events-none select-none"
-            />
+            <!-- SVG Background Animado: Curvas Bézier & Vetores Criativos -->
+            <div class="absolute inset-0 pointer-events-none overflow-hidden opacity-25 group-hover:opacity-50 transition-opacity duration-500">
+              <svg class="absolute w-full h-full right-0 top-0 text-cyan-400/40 group-hover:text-cyan-300/80 transition-colors" viewBox="0 0 200 200" fill="none">
+                <path d="M 20 160 Q 80 40, 180 80" stroke="#06B6D4" stroke-width="2" fill="none" stroke-dasharray="6 4" />
+                <path d="M 40 180 Q 120 100, 160 20" stroke="#8B5CF6" stroke-width="1.5" fill="none" />
+                <circle cx="80" cy="98" r="4" fill="#06B6D4" class="animate-pulse" />
+                <circle cx="130" cy="65" r="4" fill="#8B5CF6" class="animate-pulse" />
+                <rect x="75" y="93" width="10" height="10" stroke="#06B6D4" stroke-width="1" fill="none" />
+                <rect x="125" y="60" width="10" height="10" stroke="#8B5CF6" stroke-width="1" fill="none" />
+              </svg>
+            </div>
             <div
               class="absolute inset-0 bg-gradient-to-t from-[#080D1A] via-[#0B1222]/90 to-[#0B1222]/75 pointer-events-none"
               aria-hidden="true"
             ></div>
 
             <div class="relative z-10">
-              <div class="flex items-center justify-between gap-2.5 mb-6">
-                <div class="w-11 h-11 rounded-xl bg-cyan-500/15 border border-cyan-400/30 flex items-center justify-center text-cyan-400 shrink-0 group-hover:bg-cyan-500 group-hover:text-[#070B14] group-hover:shadow-lg group-hover:shadow-cyan-500/25 transition-all duration-200">
+              <div class="flex items-center justify-between gap-3 mb-5">
+                <div class="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-400/30 flex items-center justify-center text-cyan-400 shrink-0 group-hover:bg-cyan-500 group-hover:text-[#070B14] group-hover:shadow-lg group-hover:shadow-cyan-500/25 transition-all duration-200">
                   <i data-lucide="layers" class="w-5 h-5"></i>
                 </div>
-                <span class="text-[10px] font-semibold tracking-wider text-cyan-300 bg-cyan-500/10 border border-cyan-400/20 px-2.5 py-1 rounded-md whitespace-nowrap shrink-0">
+                <span class="text-[10px] font-semibold tracking-wider text-cyan-300 bg-cyan-500/10 border border-cyan-400/20 px-2.5 py-1 rounded-full whitespace-nowrap shrink-0">
                   DESIGN, WEB &amp; CRIATIVOS
                 </span>
               </div>
@@ -521,46 +527,57 @@
               <h2 class="font-display font-bold text-2xl tracking-[-0.02em] text-[#F8FAFC] group-hover:text-cyan-300 transition-colors">
                 Vitally Studio
               </h2>
-              <p class="mt-2.5 text-sm leading-relaxed text-[#94A3B8]">
+              <p class="mt-2 text-sm leading-relaxed text-[#94A3B8]">
                 Criação de sites de alta conversão, identidade visual, criativos e ativos digitais.
               </p>
             </div>
 
-            <div class="relative z-10 mt-8 pt-5 border-t border-white/10 flex items-center justify-between gap-2 text-xs">
+            <div class="relative z-10 flex items-center justify-between gap-2 pt-4 mt-6 border-t border-white/10 text-xs">
               <span class="text-slate-300 whitespace-nowrap">Módulo em preparação</span>
               <span class="inline-flex items-center gap-1 font-semibold text-cyan-400 group-hover:text-cyan-300 transition-colors whitespace-nowrap shrink-0">
-                <span>Acessar Vertente</span>
+                <span class="whitespace-nowrap">Acessar Vertente</span>
                 <i data-lucide="arrow-right" class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform duration-150"></i>
               </span>
             </div>
           </button>
 
-          <!-- Card 3: Vitally Apps -->
+          <!-- Card 3: Vitally Apps (IA & Engenharia SaaS) -->
           <button
             type="button"
             data-navigate="apps"
             data-module="apps"
-            class="overflow-hidden relative group text-left bg-[#0B1222]/85 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-7 flex flex-col justify-between h-full min-h-[300px] transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500/60 hover:shadow-[0_0_30px_rgba(16,185,129,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+            class="overflow-hidden relative group text-left bg-[#0B1222]/85 backdrop-blur-xl border border-white/10 rounded-2xl p-6 flex flex-col justify-between min-h-[290px] transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500/75 hover:shadow-[0_0_30px_rgba(16,185,129,0.25)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
           >
-            <img
-              src="/src/assets/images/lobby_vitally_apps_1795009854285.jpg"
-              alt=""
-              aria-hidden="true"
-              referrerpolicy="no-referrer"
-              onerror="this.style.display='none'"
-              class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-35 group-hover:scale-105 transition-all duration-500 pointer-events-none select-none"
-            />
+            <!-- SVG Background Animado: Terminal Code & AI Nodes -->
+            <div class="absolute inset-0 pointer-events-none overflow-hidden opacity-25 group-hover:opacity-50 transition-opacity duration-500">
+              <div class="absolute inset-x-2 -bottom-10 font-mono text-[9px] text-emerald-400/60 leading-relaxed animate-terminal-scroll select-none">
+                const app = new VitallySaaS();<br/>
+                app.deployCluster({ region: 'us-east' });<br/>
+                AI.optimizePipeline(activeLeads);<br/>
+                syncSupabaseRlsSecurityRules();<br/>
+                status: 200 OK - WebSocket Live;<br/>
+                const app = new VitallySaaS();<br/>
+                app.deployCluster({ region: 'us-east' });<br/>
+                AI.optimizePipeline(activeLeads);<br/>
+                syncSupabaseRlsSecurityRules();<br/>
+                status: 200 OK - WebSocket Live;
+              </div>
+              <svg class="absolute right-3 top-3 w-16 h-16 text-emerald-500/40" viewBox="0 0 100 100" fill="none">
+                <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" />
+                <circle cx="50" cy="50" r="10" fill="#10B981" class="animate-ping" />
+              </svg>
+            </div>
             <div
               class="absolute inset-0 bg-gradient-to-t from-[#080D1A] via-[#0B1222]/90 to-[#0B1222]/75 pointer-events-none"
               aria-hidden="true"
             ></div>
 
             <div class="relative z-10">
-              <div class="flex items-center justify-between gap-2.5 mb-6">
-                <div class="w-11 h-11 rounded-xl bg-emerald-500/15 border border-emerald-400/30 flex items-center justify-center text-emerald-400 shrink-0 group-hover:bg-emerald-500 group-hover:text-[#070B14] group-hover:shadow-lg group-hover:shadow-emerald-500/25 transition-all duration-200">
+              <div class="flex items-center justify-between gap-3 mb-5">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-400/30 flex items-center justify-center text-emerald-400 shrink-0 group-hover:bg-emerald-500 group-hover:text-[#070B14] group-hover:shadow-lg group-hover:shadow-emerald-500/25 transition-all duration-200">
                   <i data-lucide="cpu" class="w-5 h-5"></i>
                 </div>
-                <span class="text-[10px] font-semibold tracking-wider text-emerald-300 bg-emerald-500/10 border border-emerald-400/20 px-2.5 py-1 rounded-md whitespace-nowrap shrink-0">
+                <span class="text-[10px] font-semibold tracking-wider text-emerald-300 bg-emerald-500/10 border border-emerald-400/20 px-2.5 py-1 rounded-full whitespace-nowrap shrink-0">
                   PRODUTOS SAAS PRÓPRIOS
                 </span>
               </div>
@@ -568,15 +585,15 @@
               <h2 class="font-display font-bold text-2xl tracking-[-0.02em] text-[#F8FAFC] group-hover:text-emerald-300 transition-colors">
                 Vitally Apps
               </h2>
-              <p class="mt-2.5 text-sm leading-relaxed text-[#94A3B8]">
+              <p class="mt-2 text-sm leading-relaxed text-[#94A3B8]">
                 Portfólio e gestão centralizada dos aplicativos e micro-SaaS proprietários do grupo.
               </p>
             </div>
 
-            <div class="relative z-10 mt-8 pt-5 border-t border-white/10 flex items-center justify-between gap-2 text-xs">
+            <div class="relative z-10 flex items-center justify-between gap-2 pt-4 mt-6 border-t border-white/10 text-xs">
               <span class="text-slate-300 whitespace-nowrap">2 produtos ativos</span>
               <span class="inline-flex items-center gap-1 font-semibold text-emerald-400 group-hover:text-emerald-300 transition-colors whitespace-nowrap shrink-0">
-                <span>Acessar Vertente</span>
+                <span class="whitespace-nowrap">Acessar Vertente</span>
                 <i data-lucide="arrow-right" class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform duration-150"></i>
               </span>
             </div>

@@ -953,20 +953,66 @@ async function syncPlaybookRulesToSupabase() {
 }
 
 // ==========================================================================
-// Gemini API Helpers (localStorage prioritário + fallback process.env no servidor)
+// Gemini API Helpers (Direct REST API Call for Static Hosting / GitHub Pages)
 // ==========================================================================
+function normalizeRestParts(rawParts) {
+  if (!Array.isArray(rawParts)) return [];
+  const normalized = [];
+  for (const item of rawParts) {
+    if (!item || typeof item !== 'object') continue;
+    if (typeof item.text === 'string' && item.text.length > 0) {
+      normalized.push({ text: item.text });
+    } else if (item.inlineData?.data && item.inlineData?.mimeType) {
+      normalized.push({
+        inline_data: {
+          mime_type: item.inlineData.mimeType,
+          data: item.inlineData.data,
+        },
+      });
+    } else if (item.inline_data?.data && item.inline_data?.mime_type) {
+      normalized.push({
+        inline_data: {
+          mime_type: item.inline_data.mime_type,
+          data: item.inline_data.data,
+        },
+      });
+    }
+  }
+  return normalized;
+}
+
 async function callGemini({ parts, useGoogleSearch = false, systemInstruction = '' }) {
-  const customApiKey = getGeminiKey();
+  const apiKey = getGeminiKey();
+  if (!apiKey) {
+    showToast('Configure sua GEMINI_API_KEY na engrenagem superior.');
+    throw new Error(
+      'HTTP 400 (MISSING_API_KEY): Nenhuma GEMINI_API_KEY configurada. Clique no ícone de engrenagem no cabeçalho superior para inserir sua chave da API do Google Gemini.'
+    );
+  }
+
+  const normalizedParts = normalizeRestParts(parts);
+  if (normalizedParts.length === 0) {
+    throw new Error('HTTP 400 (INVALID_ARGUMENT): Informe ao menos um item em parts.');
+  }
+
+  const restPayload = {
+    contents: [{ role: 'user', parts: normalizedParts }],
+  };
+
+  if (useGoogleSearch) {
+    restPayload.tools = [{ google_search: {} }];
+  }
+
   const cleanSystem = typeof systemInstruction === 'string' ? systemInstruction.trim() : '';
-  const response = await fetch('/api/gemini/generate', {
+  if (cleanSystem) {
+    restPayload.system_instruction = { parts: [{ text: cleanSystem }] };
+  }
+
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
+  const response = await fetch(endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      parts,
-      useGoogleSearch,
-      ...(cleanSystem ? { systemInstruction: cleanSystem } : {}),
-      ...(customApiKey ? { apiKey: customApiKey } : {}),
-    }),
+    body: JSON.stringify(restPayload),
   });
 
   const rawText = await response.text();
@@ -978,13 +1024,19 @@ async function callGemini({ parts, useGoogleSearch = false, systemInstruction = 
   }
 
   if (!response.ok) {
-    throw new Error(data?.error || `HTTP ${response.status}: ${rawText || response.statusText}`);
+    const googleErr = data.error || {};
+    const statusTag = googleErr.status ? ` (${googleErr.status})` : '';
+    const technicalMessage = googleErr.message || rawText || response.statusText || 'Erro desconhecido retornado pela API do Gemini';
+    throw new Error(`HTTP ${response.status}${statusTag}: ${technicalMessage}`);
   }
 
-  return {
-    text: (data?.text || '').trim(),
-    groundingChunks: Array.isArray(data?.groundingChunks) ? data.groundingChunks : [],
-  };
+  const candidates = Array.isArray(data.candidates) ? data.candidates : [];
+  const candidate = candidates[0] || {};
+  const textParts = candidate.content?.parts || [];
+  const text = textParts.map((p) => p.text || '').join('\n').trim();
+  const groundingChunks = candidate.groundingMetadata?.groundingChunks || [];
+
+  return { text, groundingChunks };
 }
 
 function parseJsonFromGeminiText(rawText) {
