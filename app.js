@@ -9,9 +9,8 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { initVitallyFlow, updateVitallyFlowContext } from './vitally-flow.js';
 
 const DEFAULT_SUPABASE_URL = 'https://yyafeajyfzpvgpknaefz.supabase.co';
-const DEFAULT_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl5YWZlYWp5Znpwdmdwa25hZWZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ5NTY5NTksImV4cCI6MjExMDUzMjk1OX0.EoX12-QqqL95JEaO24JCFdnfRCgtD0aZYueiPx7IJGA'
-  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SUPABASE_ANON_KEY) ||
-  '';
+const DEFAULT_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl5YWZlYWp5Znpwdmdwa25hZWZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ5NTY5NTksImV4cCI6MjExMDUzMjk1OX0.EoX12-QqqL95JEaO24JCFdnfRCgtD0aZYueiPx7IJGA';
+  
 
 const STORAGE_KEYS = {
   SUPABASE_URL: 'vitally_supabase_url',
