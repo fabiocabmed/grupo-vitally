@@ -981,6 +981,14 @@ function normalizeRestParts(rawParts) {
   return normalized;
 }
 
+function formatAiErrorMessage(err) {
+  const msg = err instanceof Error ? err.message : String(err || '');
+  if (/429|RESOURCE_EXHAUSTED|quota|rate limit/i.test(msg)) {
+    return '⚠️ Limite Diário Excedido: O modelo de inteligência artificial atingiu o limite gratuito de requisições do dia. Aguarde a redefinição da cota (às 05h00) ou insira uma chave de API alternativa na engrenagem de configurações.';
+  }
+  return msg;
+}
+
 async function callGemini({ parts, useGoogleSearch = false, systemInstruction = '' }) {
   const apiKey = getGeminiKey();
   if (!apiKey) {
@@ -1025,9 +1033,20 @@ async function callGemini({ parts, useGoogleSearch = false, systemInstruction = 
 
   if (!response.ok) {
     const googleErr = data.error || {};
+    const status = response.status;
+    const errMessage = String(googleErr.message || rawText || response.statusText || '');
+    if (
+      status === 429 ||
+      /429|RESOURCE_EXHAUSTED|quota|rate limit/i.test(errMessage) ||
+      /429|RESOURCE_EXHAUSTED|quota|rate limit/i.test(JSON.stringify(data))
+    ) {
+      throw new Error(
+        '⚠️ Limite Diário Excedido: O modelo de inteligência artificial atingiu o limite gratuito de requisições do dia. Aguarde a redefinição da cota (às 05h00) ou insira uma chave de API alternativa na engrenagem de configurações.'
+      );
+    }
     const statusTag = googleErr.status ? ` (${googleErr.status})` : '';
     const technicalMessage = googleErr.message || rawText || response.statusText || 'Erro desconhecido retornado pela API do Gemini';
-    throw new Error(`HTTP ${response.status}${statusTag}: ${technicalMessage}`);
+    throw new Error(`HTTP ${status}${statusTag}: ${technicalMessage}`);
   }
 
   const candidates = Array.isArray(data.candidates) ? data.candidates : [];
@@ -3368,7 +3387,7 @@ async function handleIntakeSubmit() {
     openAccountInCockpit(newLead);
     showToast(`Dossiê de "${newLead.empresa}" criado com ${newLead.cases.length} cases!`);
   } catch (err) {
-    setIntakeStatus(`Falha ao processar empresa: ${err.message}`, 'error');
+    setIntakeStatus(`Falha ao processar empresa: ${formatAiErrorMessage(err)}`, 'error');
   } finally {
     if (btn) btn.disabled = false;
     if (label) label.textContent = 'Pesquisar & Abrir Empresa';
@@ -3907,7 +3926,7 @@ async function handleGenerateContextualWhatsapp() {
     closeWhatsappContextModal();
     showToast('Mensagem de WhatsApp gerada e pronta para copiar!');
   } catch (err) {
-    setWaModalStatus(`Falha ao gerar mensagem: ${err.message}`, 'error');
+    setWaModalStatus(`Falha ao gerar mensagem: ${formatAiErrorMessage(err)}`, 'error');
   } finally {
     vfState.isProcessingAi = false;
     if (btn) btn.disabled = false;
@@ -4123,7 +4142,7 @@ async function handleProcessAndRegisterAttempt() {
         : `Tentativa ${prevAttempt}/${maxAttempts} registrada! Atualização do CRM pronta.`
     );
   } catch (err) {
-    setProcessStatus(`Falha ao processar tentativa com IA: ${err.message}`, 'error');
+    setProcessStatus(`Falha ao processar tentativa com IA: ${formatAiErrorMessage(err)}`, 'error');
   } finally {
     vfState.isProcessingAi = false;
     if (btn) btn.disabled = false;
@@ -4187,7 +4206,7 @@ async function handleReanalyzeWithBrain() {
     renderDossierAndScript();
     showToast(`Análise de "${account.empresa}" atualizada com o Cérebro da IA!`);
   } catch (err) {
-    showToast(`Falha ao reanalisar com Cérebro da IA: ${err.message}`);
+    showToast(`Falha ao reanalisar com Cérebro da IA: ${formatAiErrorMessage(err)}`);
   } finally {
     vfState.isProcessingAi = false;
     if (btn) btn.disabled = false;
@@ -4727,7 +4746,7 @@ async function handleModalTemplateAiFormat() {
     }
     setModalTemplateStatus('Texto formatado com variáveis e sem abreviações! Revise e clique em Salvar.', 'success');
   } catch (err) {
-    setModalTemplateStatus(`Erro ao formatar com IA: ${err.message}`, 'error');
+    setModalTemplateStatus(`Erro ao formatar com IA: ${formatAiErrorMessage(err)}`, 'error');
   } finally {
     if (btn) btn.disabled = false;
     if (btnLabel) btnLabel.textContent = 'Formatar & Aplicar Variáveis com IA';
